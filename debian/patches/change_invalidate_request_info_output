@@ -1,0 +1,26 @@
+From: Don Armstrong <don@debian.org>
+Subject: Silence cache invalidation requests unless in debug mode
+Origin: debian
+Bug-Debian: http://bugs.debian.org/622230
+--- a/nscd.c
++++ b/nscd.c
+@@ -2442,7 +2442,7 @@
+ 
+ 	if (!arg) { /* shutdown */
+ 		xfull_write(sock, &ureq, sizeof(ureq));
+-		printf("sent shutdown request, exiting\n");
++		fprintf(stderr,"sent shutdown request, exiting\n");
+ 	} else { /* invalidate */
+ 		size_t arg_len = strlen(arg) + 1;
+ 		char buf[sizeof(user_req_header) + arg_len];
+@@ -2453,7 +2453,9 @@
+ 		req->key_len = arg_len;
+ 		memcpy(req + 1, arg, arg_len);
+ 		xfull_write(sock, req, sizeof(*req) + arg_len);
+-		printf("sent invalidate(%s) request, exiting\n", arg);
++        if (debug) {
++          fprintf(stderr,"sent invalidate(%s) request, exiting\n", arg);
++        }
+ 	}
+ 	exit(0);
+ }

@@ -1,0 +1,15 @@
+[Unit]
+Description=Name Service Cache Daemon
+Documentation=man:unscd
+
+[Service]
+User=root
+ExecStart=/usr/sbin/nscd -d
+Type=notify
+Restart=always
+LimitNOFILE=102401
+TasksMax=8192
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

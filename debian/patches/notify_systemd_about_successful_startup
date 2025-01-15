@@ -1,0 +1,28 @@
+From: =?utf-8?q?Ferenc_W=C3=A1gner?= <wferi@debian.org>
+Date: Thu, 31 May 2018 11:56:10 +0200
+Subject: Notify systemd about successful startup
+
+---
+ nscd.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+--- a/nscd.c
++++ b/nscd.c
+@@ -99,6 +99,8 @@
+ /* For inet_ntoa (for debug build only) */
+ #include <arpa/inet.h>
+ 
++#include <systemd/sd-daemon.h>
++
+ /*
+  * 0.21 add SEGV reporting to worker
+  * 0.22 don't do freeaddrinfo() in GETAI worker, it's crashy
+@@ -2663,6 +2665,8 @@
+ 		config.nttl[n] *= 1000;
+ 	}
+ 
++	sd_notify (0, "READY=1");
++
+ 	main_loop();
+ 
+ 	return 0;

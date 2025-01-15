@@ -1,0 +1,27 @@
+#!/bin/sh
+
+set -e
+
+case "$1" in
+    configure)
+        # Create the unscd user
+	    if which adduser >/dev/null 2>&1 &&
+               which getent >/dev/null 2>&1 &&
+               which id >/dev/null 2>&1 &&
+               which addgroup >/dev/null 2>&1; then
+	        if ! getent group unscd >/dev/null 2>&1; then
+		        addgroup --system unscd;
+	        fi;
+	        if ! id -u unscd >/dev/null 2>&1; then
+		        adduser --quiet --system --ingroup unscd --no-create-home --home /var/lib/unscd unscd;
+	        fi;
+	    fi;
+	    ;;
+    *)
+	    # do nothing
+	    ;;
+esac
+
+###DEBHELPER###
+
+exit 0;

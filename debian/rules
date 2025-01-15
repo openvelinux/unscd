@@ -1,0 +1,34 @@
+#!/usr/bin/make -f
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+include /usr/share/dpkg/architecture.mk
+-include /usr/share/dpkg/buildtools.mk
+CC_FOR_BUILD ?= $(CC)
+
+%:
+	dh $@
+
+override_dh_auto_clean:
+	rm -f nscd
+	dh_auto_clean
+
+override_dh_auto_build:
+	$(CC_FOR_BUILD) $(CFLAGS) $(LDFLAGS) -o nscd nscd.c -lsystemd -lresolv
+	help2man --name 'nscd which does not hang' \
+		--include debian/help2man \
+		--no-info \
+		./nscd > debian/unscd.man
+	ln -fs unscd.man debian/nscd.man
+ifneq ($(DEB_BUILD_ARCH),$(DEB_HOST_ARCH))
+	$(CC) $(CFLAGS) $(LDFLAGS) -o nscd nscd.c
+endif
+
+override_dh_auto_install:
+	install -d debian/unscd/usr/sbin/
+	install -t debian/unscd/usr/sbin/ nscd
+	install -d debian/unscd/etc/
+	install -m644 -t debian/unscd/etc/ debian/nscd.conf
+
+override_dh_systemd_start:
+	dh_systemd_start --restart-after-upgrade --no-stop-on-upgrade

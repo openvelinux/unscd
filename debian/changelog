@@ -1,0 +1,115 @@
+unscd (0.54-1+velinux2) unstable; urgency=medium
+
+  * Increase recvbuffer for res_search from 512 to 65536
+  * fix: no A/AAAA records exists
+  * fix gethostbyname() bug which may crash in some scenarios
+  * fix FILE * leak
+  * use DNS TTL for host caching
+
+ -- Ling Zhang <zhangling.arya@bytedance.com>  Wed, 11 Oct 2023 18:04:00 +0800
+
+unscd (0.54-1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Don Armstrong <don@debian.org>  Wed, 25 Nov 2020 10:43:49 -0800
+
+unscd (0.53-2) unstable; urgency=medium
+
+  [ Thanks to Ferenc Wágner ]
+  * Add systemd notification support for startup error reporting.
+    (Closes: #900519)
+  * Move Homepage into the source package (for the PTS) and use HTTPS.
+  * Enable hardening.
+  * Let systemctl help find the man page.
+  * Switch to HTTPS in the watch file.
+
+  [ Thanks to Helmut Grohne]
+  * Fix FTCBFS: Build twice for help2man and cross. (Closes: #902291)
+
+  [ Don Armstrong ]
+  * Integrate patches from Ferenc
+
+ -- Don Armstrong <don@debian.org>  Thu, 31 May 2018 15:10:25 -0700
+
+unscd (0.53-1) unstable; urgency=medium
+
+  * New upstream revision
+  * Update standards version to 4.1.4, no changes.
+
+ -- Don Armstrong <don@debian.org>  Fri, 27 Apr 2018 17:22:07 -0700
+
+unscd (0.52-2) unstable; urgency=medium
+
+  * Update standards version to 4.1.1, no changes.
+  * Add missing #!/bin/sh to postinst (Closes: #843283)
+  * Use compat level 10
+  * Do not stop on upgrade, just restart after upgrade
+  * Do not always print debugging info upon invalidate. (Closes: #844447)
+
+ -- Don Armstrong <don@debian.org>  Thu, 26 Oct 2017 15:52:19 -0700
+
+unscd (0.52-1) unstable; urgency=medium
+
+  * New upstream release (Closes: #795618)
+
+  [ Thanks to Chris Kuehl <ckuehl@ocf.berkeley.edu> ]
+  * Add manpage for unscd and nscd (Closes: #789871)
+  * Add systemd unit file (Closes: #795621)
+
+ -- Don Armstrong <don@debian.org>  Thu, 03 Dec 2015 10:40:56 -0800
+
+unscd (0.51-1) unstable; urgency=low
+
+  * New upstream release
+  * Silence the cache invalidation output (Closes: #622230)
+  * Update to debhelper 9
+  * Support at least INT_MAX numbers in config (Closes: #676689)
+  * Use saner settings in nscd.conf; thanks to Harald Dunkel (Closes:
+    #702211).
+  * Run unscd as the unscd user instead of root by default
+
+ -- Don Armstrong <don@debian.org>  Mon, 21 Oct 2013 17:02:22 -0700
+
+unscd (0.49-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Don Armstrong <don@debian.org>  Tue, 07 May 2013 11:54:45 -0700
+
+unscd (0.48-2) unstable; urgency=low
+
+  * Actually distribute the nscd binary and configuration file (Closes:
+    #657721) and locate a brown paper bag.
+
+ -- Don Armstrong <don@debian.org>  Sat, 28 Jan 2012 09:27:24 -0800
+
+unscd (0.48-1) unstable; urgency=low
+
+  * New upstream release
+  * Fix typo in nscd.conf (Closes: #656615)
+  * Add newline to nscd.conf (Closes: #656603)
+  * Switch to dh7 style rules file
+  * Update standards version; no changes
+
+ -- Don Armstrong <don@debian.org>  Sat, 21 Jan 2012 13:36:59 -0800
+
+unscd (0.47-3) unstable; urgency=low
+
+  * Only indicate that the cache is being invalidated when in debug mode
+    (Closes: #622230)
+
+ -- Don Armstrong <don@debian.org>  Mon, 30 May 2011 08:56:33 -0700
+
+unscd (0.47-2) unstable; urgency=low
+
+  * Remove the Provides: nscd as a workaround for (Closes: #606588) to
+    avoid issues due to #606593 in insserv.
+
+ -- Don Armstrong <don@debian.org>  Sun, 12 Dec 2010 20:32:11 -0800
+
+unscd (0.47-1) unstable; urgency=low
+
+  * Initial packaging for Debian (Closes: #513305)
+
+ -- Don Armstrong <don@debian.org>  Tue, 19 Oct 2010 22:21:13 -0700
